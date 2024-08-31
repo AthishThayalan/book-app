@@ -4,16 +4,24 @@
 <html>
 <head>
     <title>Book List</title>
+    <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/main.css")">
 </head>
 <body>
 <h1>Book List</h1>
-<ul>
+<div class="book-list">
     @for(book <- books) {
-    <li>
-        <img src= @book.imageUrl alt="Cover image of @book.title" style="width:100px;height:auto;">
-        <a href="">@book.title</a> by @book.author
-    </li>
+    <div class="book-item">
+
+        <img src= @book.imageUrl
+        alt="Cover image of @book.title"
+        class="book-image">
+
+        <div class="book-details">
+            <a href="" class="book-title">@book.title</a>
+            <div class="book-author">by @book.author</div>
+        </div>
+    </div>
     }
-</ul>
+</div>
 </body>
 </html>
