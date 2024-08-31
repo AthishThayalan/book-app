@@ -17,7 +17,7 @@
         class="book-image">
 
         <div class="book-details">
-            <a href="" class="book-title">@book.title</a>
+            <a href="@routes.BookController.viewBook(book.id.getOrElse(0L))" class="book-title">@book.title</a>
             <div class="book-author">by @book.author</div>
         </div>
     </div>

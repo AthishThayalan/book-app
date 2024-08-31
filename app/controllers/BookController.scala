@@ -5,6 +5,7 @@ import play.api.mvc._
 import services.BookService
 import models.Book
 import play.api.i18n.I18nSupport
+import play.api.libs.Comet.json
 import play.api.libs.json._
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -21,6 +22,14 @@ class BookController @Inject() (
     bookService.listAllBooks().map { books =>
       Ok(views.html.bookList(books))
     }
-
   }
+
+  def viewBook(id: Long) = Action.async {
+    implicit request: Request[AnyContent] =>
+      bookService.getBook(id).map {
+        case Some(book) => Ok(views.html.bookView(book))
+        case None       => NotFound("Book not found")
+      }
+  }
+
 }

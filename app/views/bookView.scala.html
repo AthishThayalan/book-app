@@ -1,0 +1,23 @@
+@import play.api.i18n.Messages
+@(book: models.Book)(implicit messages: Messages)
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@book.title - Details</title>
+    <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/bookView.css")">
+</head>
+<body>
+<div class="book-detail">
+    <h1 class="book-title">@book.title</h1>
+    <p class="book-info"><strong>Author:</strong> @book.author</p>
+    <p class="book-info"><strong>Year:</strong> @book.year</p>
+    @book.imageUrl.map { url =>
+    <img src="@url" alt="Cover image of @book.title" class="book-image">
+    }.getOrElse {
+    <img src="@routes.Assets.versioned("images/default.png")" alt="Default cover image" class="book-image">
+    }
+    <a href="@routes.BookController.index" class="back-link">Back to list</a>
+</div>
+</body>
+</html>
