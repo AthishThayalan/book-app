@@ -10,6 +10,7 @@
 <ul>
     @for(book <- books) {
     <li>
+        <img src= @book.imageUrl alt="Cover image of @book.title" style="width:100px;height:auto;">
         <a href="">@book.title</a> by @book.author
     </li>
     }

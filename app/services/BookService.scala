@@ -7,7 +7,15 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class BookService @Inject() (implicit ec: ExecutionContext) {
   private var books: Map[Long, Book] = Map(
-    1.toLong -> Book(Some(1.toLong), "Name of the wind", "P R", 2000)
+    1.toLong -> Book(
+      Some(1.toLong),
+      "Name of the wind",
+      "P R",
+      2000,
+      Some(
+        "https://m.media-amazon.com/images/I/611iKJa7a-L._AC_UF894,1000_QL80_.jpg"
+      )
+    )
   )
   private var nextId: Long = 1
 
