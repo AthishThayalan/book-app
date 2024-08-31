@@ -1,23 +1,15 @@
 package services
 
 import models.Book
+import play.api.libs.json.Json
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
+import scala.io.Source
 
 class BookService @Inject() (implicit ec: ExecutionContext) {
-  private var books: Map[Long, Book] = Map(
-    1.toLong -> Book(
-      Some(1.toLong),
-      "Name of the wind",
-      "P R",
-      2000,
-      Some(
-        "https://m.media-amazon.com/images/I/611iKJa7a-L._AC_UF894,1000_QL80_.jpg"
-      )
-    )
-  )
-  private var nextId: Long = 1
+  private var books: Map[Long, Book] = loadBooksFromFile()
+  private var nextId: Long = (books.keys.maxOption.getOrElse(0L) + 1L)
 
   def listAllBooks(): Future[Seq[Book]] = Future {
     books.values.toSeq
@@ -51,5 +43,15 @@ class BookService @Inject() (implicit ec: ExecutionContext) {
       case None =>
         false
     }
+  }
+
+  private def loadBooksFromFile(): Map[Long, Book] = {
+    val source = Source.fromFile("conf/books.json")
+    val json =
+      try source.mkString
+      finally source.close()
+
+    Json.parse(json).as[Seq[Book]].map(b => b.id.getOrElse(0L) -> b).toMap
+
   }
 }
