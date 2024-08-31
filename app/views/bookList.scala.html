@@ -7,15 +7,16 @@
     <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/main.css")">
 </head>
 <body>
-<h1>Book List</h1>
-<div class="book-list">
+<h1>My Bookshelf</h1>
+
+<!-- Input field for search -->
+<input type="text" id="searchInput" placeholder="Search for books...">
+
+<!-- Book list container -->
+<div class="book-list" id="bookList">
     @for(book <- books) {
-    <div class="book-item">
-
-        <img src= @book.imageUrl
-        alt="Cover image of @book.title"
-        class="book-image">
-
+    <div class="book-item" data-info="@book.title.toLowerCase() @book.author.toLowerCase()">
+        <img src="@book.imageUrl.getOrElse("path/to/default/image.jpg")" alt="Cover image of @book.title" class="book-image">
         <div class="book-details">
             <a href="@routes.BookController.viewBook(book.id.getOrElse(0L))" class="book-title">@book.title</a>
             <div class="book-author">by @book.author</div>
@@ -23,5 +24,28 @@
     </div>
     }
 </div>
+
+<!-- JavaScript for dynamic filtering -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        const bookList = document.getElementById('bookList');
+        const bookItems = bookList.getElementsByClassName('book-item');
+
+        searchInput.addEventListener('input', function() {
+            const filter = searchInput.value.toLowerCase();
+
+            Array.from(bookItems).forEach(item => {
+                const info = item.getAttribute('data-info');
+                if (info.includes(filter)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+
 </body>
 </html>

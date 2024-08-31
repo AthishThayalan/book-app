@@ -47,3 +47,12 @@ h1 {
     font-size: 1em;
     color: #555;
 }
+
+#searchInput {
+    width: 25%;
+    padding: 10px;
+    margin: 20px auto;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    display: block;
+}
