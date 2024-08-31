@@ -1,0 +1,18 @@
+@(books: Seq[models.Book])(implicit messages: Messages)
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book List</title>
+</head>
+<body>
+<h1>Book List</h1>
+<ul>
+    @for(book <- books) {
+    <li>
+        <a href="">@book.title</a> by @book.author
+    </li>
+    }
+</ul>
+</body>
+</html>
