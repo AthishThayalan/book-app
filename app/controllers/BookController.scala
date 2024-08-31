@@ -4,9 +4,8 @@ import javax.inject._
 import play.api.mvc._
 import services.BookService
 import models.Book
-import org.apache.pekko.http.scaladsl.model.HttpHeader.ParsingResult.Ok
+import play.api.i18n.I18nSupport
 import play.api.libs.json._
-import play.mvc.Action
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -15,7 +14,8 @@ class BookController @Inject() (
     cc: ControllerComponents,
     bookService: BookService
 )(implicit ec: ExecutionContext)
-    extends AbstractController(cc) {
+    extends AbstractController(cc)
+    with I18nSupport {
 
   def index = Action.async { implicit request: Request[AnyContent] =>
     bookService.listAllBooks().map { books =>

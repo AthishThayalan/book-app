@@ -3,11 +3,12 @@ package services
 import models.Book
 
 import javax.inject.Inject
-import scala.collection.convert.ImplicitConversions.`collection asJava`
 import scala.concurrent.{ExecutionContext, Future}
 
 class BookService @Inject() (implicit ec: ExecutionContext) {
-  private var books: Map[Long, Book] = Map()
+  private var books: Map[Long, Book] = Map(
+    1.toLong -> Book(Some(1.toLong), "Name of the wind", "P R", 2000)
+  )
   private var nextId: Long = 1
 
   def listAllBooks(): Future[Seq[Book]] = Future {
