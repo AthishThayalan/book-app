@@ -65,7 +65,7 @@ class BookService @Inject() (implicit ec: ExecutionContext) {
     updatedBooks.find(_.id.contains(id))
   }
 
-  def deleteBook(id: Long): Future[Boolean] = Future {
+  def deleteBook(id: Long): Future[Boolean] = Future { // this logic works
     val books = readBooksFromFile()
     val updatedBooks = books.filterNot(_.id.contains(id))
     if (books.size != updatedBooks.size) { // if book was removed

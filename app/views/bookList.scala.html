@@ -1,4 +1,4 @@
-@(books: Seq[models.Book])(implicit messages: Messages)
+@(books: Seq[models.Book])(implicit request: Request[AnyContent], messages: Messages)
 
 <!DOCTYPE html>
 <html>
@@ -7,7 +7,15 @@
     <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/main.css")">
 </head>
 <body>
+
+<nav class="navbar">
+    <a href="@routes.BookController.index">Home</a>
+    <a href="@routes.BookController.addBook">Add a Book</a>
+</nav>
+
 <h1>My Bookshelf</h1>
+
+
 
 <!-- Input field for search -->
 <input type="text" id="searchInput" placeholder="Search for books...">
@@ -20,6 +28,12 @@
         <div class="book-details">
             <a href="@routes.BookController.viewBook(book.id.getOrElse(0L))" class="book-title">@book.title</a>
             <div class="book-author">by @book.author</div>
+            <!-- Delete button -->
+            @helper.form(action = routes.BookController.removeBook(book.id.getOrElse(0L)), 'method -> "post", 'class -> "delete-form") {
+            @helper.CSRF.formField
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit" class="delete-button">Delete</button>
+            }
         </div>
     </div>
     }

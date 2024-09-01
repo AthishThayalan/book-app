@@ -5,6 +5,7 @@ body {
 }
 h1 {
     color: #333;
+    margin-top:100px;
     text-align: center;
 }
 .book-list {
@@ -56,3 +57,48 @@ h1 {
     border: 1px solid #ddd;
     display: block;
 }
+
+.delete-button {
+            display: inline-block;
+            padding: 5px 10px;
+            font-size: 0.9em;
+            color: #fff;
+            background-color: #dc3545;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            cursor: pointer;
+            margin-left: 600px;
+            transition: background-color 0.2s;
+        }
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000; /* Ensure it stays on top of other content */
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            font-size: 16px;
+
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }

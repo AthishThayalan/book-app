@@ -1,21 +1,40 @@
-@(book: Option[models.Book])(implicit messages: Messages)
+@(form: Form[BookFormData])(implicit request: Request[AnyContent], messages: Messages)
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>@if(book.isDefined) { "Update Book" } else { "Add Book" }</title>
+    <title>Add a Book</title>
+    <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/form.css")">
 </head>
 <body>
-<h1>@if(book.isDefined) { "Update Book" } else { "Add Book" }</h1>
-<form action="" method="post">
-    <input type="hidden" name="id" value="@book.flatMap(_.id).getOrElse("")" />
-    <label for="title">Title:</label>
-    <input type="text" name="title" value="@book.map(_.title).getOrElse("")" />
-    <label for="author">Author:</label>
-    <input type="text" name="author" value="@book.map(_.author).getOrElse("")" />
-    <label for="year">Year:</label>
-    <input type="number" name="year" value="@book.map(_.year).getOrElse("")" />
-    <button type="submit">@if(book.isDefined) { "Update" } else { "Add" }</button>
-</form>
+<!-- Navigation Bar -->
+<nav class="navbar">
+    <a href="@routes.BookController.index">Home</a>
+    <a href="@routes.BookController.addBook">Add a Book</a>
+</nav>
+
+<div class="container">
+    <h1>Add a New Book</h1>
+
+    <!-- Form for adding a new book -->
+    <div class="form-container">
+        @helper.form(action = routes.BookController.submitBook(), 'method -> "post") {
+        @helper.CSRF.formField
+        <div>
+            @helper.inputText(form("title"), '_label -> "Title", 'class -> "form-control")
+        </div>
+        <div>
+            @helper.inputText(form("author"), '_label -> "Author", 'class -> "form-control")
+        </div>
+        <div>
+            @helper.inputText(form("year"), '_label -> "Year", 'class -> "form-control")
+        </div>
+        <div>
+            @helper.inputText(form("imageUrl"), '_label -> "Image URL (optional)", 'class -> "form-control")
+        </div>
+        <button type="submit" class="btn">Add Book</button>
+        }
+    </div>
+</div>
 </body>
 </html>
